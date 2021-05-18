@@ -10,14 +10,31 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       setInit(true);
-      setUserObj(user);
+      setUserObj(formatUser(user));
     });
   }, []);
+
+  const refreshUser = () => {
+    // react는 state를 shallow comparison한다
+    // 구조 분해 할당시 함수는 들어오지 않나..? 확인해봐야함
+    const user = authService.currentUser;
+    setUserObj(formatUser(user));
+  };
+
+  const formatUser = (fbaseUser) => ({
+    uid: fbaseUser.uid,
+    displayName: fbaseUser.displayName,
+    updateProfile: (displayName) => fbaseUser.updateProfile(displayName),
+  });
 
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} />
+        <AppRouter
+          refreshUser={refreshUser}
+          isLoggedIn={Boolean(userObj)}
+          userObj={userObj}
+        />
       ) : (
         'Initializing...'
       )}
