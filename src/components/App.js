@@ -21,11 +21,15 @@ function App() {
     setUserObj(formatUser(user));
   };
 
-  const formatUser = (fbaseUser) => ({
-    uid: fbaseUser.uid,
-    displayName: fbaseUser.displayName,
-    updateProfile: (displayName) => fbaseUser.updateProfile(displayName),
-  });
+  const formatUser = (fbaseUser) => {
+    if (!fbaseUser) return null;
+
+    return {
+      uid: fbaseUser.uid,
+      displayName: fbaseUser.displayName,
+      updateProfile: (displayName) => fbaseUser.updateProfile(displayName),
+    };
+  };
 
   return (
     <>
