@@ -1,3 +1,9 @@
+import {
+  faGithub,
+  faGoogle,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AuthForm from 'components/AuthForm';
 import { authService, firebaseInstance } from 'fbase';
 import React from 'react';
@@ -20,14 +26,15 @@ const Auth = () => {
   };
 
   return (
-    <div>
+    <div className="authContainer">
+      <FontAwesomeIcon icon={faTwitter} color={'#04AAFF'} size="3x" />
       <AuthForm />
-      <div>
-        <button name="google" onClick={onSocialClick}>
-          Continue with Google
+      <div className="authBtns">
+        <button onClick={onSocialClick} name="google" className="authBtn">
+          Google로 계속 하기 <FontAwesomeIcon icon={faGoogle} />
         </button>
-        <button name="github" onClick={onSocialClick}>
-          Continue with Github
+        <button onClick={onSocialClick} name="github" className="authBtn">
+          Github로 계속 하기 <FontAwesomeIcon icon={faGithub} />
         </button>
       </div>
     </div>
